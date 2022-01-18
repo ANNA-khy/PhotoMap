@@ -12,6 +12,10 @@
 |Server|각 사진을 크게 보여주며 시간 정보가 있으면 UC-3과 같이 슬라이드 앨범으로 보여주고 시간정보가 없으면 해당 사진만 보여준다.|ClickPhoto(UC-5)|
 |User|PhotoMap 사용을 종료한다.|Exit(UC-6)|
 |Server|서버에 저장된 사진 정보들을 삭제한다.|ClearInfo(UC-7)|
+|User|회원가입한다.|SignUp(UC-8)|
+|User|로그인한다.|Login(UC-9)|
+|Server|데이터베이스에 새로운 회원을 등록한다.|RegisterNewMember(UC-10)|
+|Server|사용자가 아이디와 비밀번호를 입력하면 해당하는 회원을 찾는다.|SearchUser(UC-11)|
 
 # Use Case Diagram
 > File Upload
@@ -22,3 +26,6 @@
 
 > Exit
 > </br>![Exit](https://user-images.githubusercontent.com/84883642/129917395-57943311-516e-4231-87d3-867323f2be93.jpg)
+
+> Login
+> </br>![use_case_login](https://user-images.githubusercontent.com/84883642/149919905-06b2438c-8dcf-4883-a70a-c0d0ba7a6e14.png)

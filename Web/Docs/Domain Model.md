@@ -1,8 +1,10 @@
 # Domain Model
-## 1. File Upload
+## 1. Login
+![login_domain_model](https://user-images.githubusercontent.com/84883642/150134255-cc820f87-68bd-4541-93b2-536eb6b49537.png)
 
-![DM_fileupload](https://user-images.githubusercontent.com/84883642/130076566-c8988558-3c71-4bfe-bfb4-85a376667d93.jpg)
+## 2. File Upload
 
-## 2. Photo Map
+![fileupload_domain_model](https://user-images.githubusercontent.com/84883642/150134248-995145c3-7e76-48f7-97fe-9e4ef5f094c4.png)
 
-![DM_showphoto](https://user-images.githubusercontent.com/84883642/130076527-8227622f-5d1c-4e9a-baed-fd5872178a31.jpg)
+## 3. Photo Map
+![photomap_domain_model](https://user-images.githubusercontent.com/84883642/150134252-5b9683c5-89ec-4e3c-9b21-60e6d7594317.png)

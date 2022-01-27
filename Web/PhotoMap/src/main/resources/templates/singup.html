@@ -1,13 +1,14 @@
-<!-- 네이버회원가입 사용 나중에 고치기 -->
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="container">
-    <form action="/members/singup" method="post">
+    <form action="/members/signup" method="post" onsubmit="return allCheck()">
         <!-- id 입력 -->
         <div class="join_row">
             <h3 class="join_title"><label for="id">아이디(ID)</label></h3>
-            <input type="text" id="id" name="id" class="int" title="ID" maxlength="20">
+            <input type="text" id="id" name="id" class="int" title="ID" maxlength="20" onchange="idCheck()">
+            <span class="id_ok">사용 가능한 아이디입니다.</span>
+            <span class="id_notok">사용할 수 없는 아이디입니다.</span>
         </div>
 
         <!-- password 입력 -->
@@ -16,7 +17,8 @@
             <input type="password" id="password" name="password" class="int" title="비밀번호 입력" aria-describedby="pswd1Msg" maxlength="20">
 
             <h3 class="join_title"><label for="pswdcheck">비밀번호 재확인(Password Check)</label></h3>
-            <input type="password" id="pswdcheck" name="pswdcheck" class="int" title="비밀번호 재확인 입력" aria-describedby="pswd2Blind" maxlength="20">
+            <input type="password" id="pswdcheck" name="pswdcheck" class="int" title="비밀번호 재확인 입력" onchange="pwCheck()" aria-describedby="pswd2Blind" maxlength="20">
+            <span class="pw_notsame">비밀번호가 일치하지 않습니다.</span>
         </div>
 
         <!-- email 입력 -->
@@ -25,8 +27,69 @@
             <input type="text" id="email" name="email" class="int" maxlength="100">
         </div>
         </br>
-        <button type="submit" id="btnJoin" class="btn_type btn_primary"><span>회원가입</span></button>
+        <button type="submit" id="btnJoin" class="btn_type"><span>회원가입</span></button>
+
     </form>
+    <style type="text/css">
+        .id_ok{color:#000000; display: none;}
+        .id_notok{color:#fc0303; display: none;}
+        .pw_notsame{color:#fc0303; display: none;}
+    </style>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        var idcheck = false;
+        var pwcheck = false;
+        function idCheck(){
+            var id = $('#id').val();
+            $.ajax({
+                url:'/members/signup/idCheck',
+                type:'post',
+                data:{id:id},
+                success:function(duplicate){
+                    if(duplicate != 1){
+                        $('.id_ok').css("display","inline-block").trigger("create");
+                        $('.id_notok').css("display", "none").trigger("create");
+                        idcheck = true;
+                    } else {
+                        $('.id_notok').css("display","inline-block").trigger("create");
+                        $('.id_ok').css("display", "none").trigger("create");
+                        idcheck = false;
+                    }
+                },
+                error:function(){
+                    alert("에러입니다. 다시 시도해주세요.");
+                }
+            });
+        };
+
+        function pwCheck(){
+            var pw = $('#password').val();
+            var pw_check = $('#pswdcheck').val();
+            if (pw==pw_check){
+                $('.pw_notsame').css("display","none").trigger("create");
+                pwcheck = true;
+            }
+            else{
+                $('.pw_notsame').css("display","inline-block").trigger("create");
+                pwcheck = false;
+            }
+        };
+
+        function allCheck(){
+            alert(pwcheck);
+            if (idcheck&&pwcheck){
+                return true;
+            }
+            else if (!idcheck){
+                alert("사용할 수 없는 아이디입니다.");
+                return false;
+            }
+            else if (!pwcheck){
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
+        };
+    </script>
 </div>
 </body>
 </html>

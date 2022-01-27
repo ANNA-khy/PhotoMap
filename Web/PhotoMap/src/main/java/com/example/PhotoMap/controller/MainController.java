@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
@@ -30,22 +32,7 @@ public class MainController {
     public String memberMenu(Model model){
         return "members";
     }
-    @GetMapping("/members/singup")
-    public String createForm(Model model){
-        return "singup";
-    }
 
-    @PostMapping("/members/singup")
-    public String register(MemberForm form){
-        Member member = new Member();
-        member.setId(form.getId());
-        member.setPassword(form.getPassword());
-        member.setEmail(form.getEmail());
-
-        this.memberService.join(member);
-
-        return "/login";
-    }
 
     @GetMapping("/login")
     public String login(Model model){

@@ -17,7 +17,7 @@ public class MembersController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/singup")
+    @GetMapping("/signup")
     public String createForm(Model model){
         return "singup";
     }
@@ -32,6 +32,13 @@ public class MembersController {
         this.memberService.join(member);
 
         return "/login";
+    }
+
+    @GetMapping("/login")
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        Model model){
+        model.addAttribute("error", error);
+        return "login";
     }
 
     @PostMapping("/signup/idCheck")

@@ -2,8 +2,8 @@ package com.example.PhotoMap.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-public class ApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
-    public ApplicationInitializer(){
+public class ApplicationSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+    public ApplicationSecurityInitializer(){
         super(SecurityConfig.class);
     }
 }

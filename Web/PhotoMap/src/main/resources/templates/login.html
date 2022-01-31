@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <form action="/members/login" method="post" onsubmit="return allCheck()">
+        <input type="text" id="id" name="id" placeholder="ID" class="int" title="ID" maxlength="20">
+        <input type="password" id="password" name="password" placeholder="Password" class="int" maxlength="20">
+        <button type="submit" id="btnJoin" class="btn_type"><span>로그인</span></button>
+    </form>
+    <div th:if="${param.error}">
+        <p th:text="아이디 또는 비밀번호가 일치하지 않습니다." class="alert alert-danger"></p>
+    </div>
+</div>
+
+</body>
+</html>

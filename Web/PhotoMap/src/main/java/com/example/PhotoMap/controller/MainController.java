@@ -34,9 +34,5 @@ public class MainController {
     }
 
 
-    @GetMapping("/login")
-    public String login(Model model){
-        Member member = new Member();
-        return "login";
-    }
+
 }

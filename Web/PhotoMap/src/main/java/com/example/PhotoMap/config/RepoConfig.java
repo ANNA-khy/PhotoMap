@@ -23,7 +23,7 @@ public class RepoConfig {
 
     @Bean
     public MemberService memberService(){
-        return new MemberService(memberRepository(), passwordEncoder());
+        return new MemberService(memberRepository());
     }
 
     @Bean
@@ -31,10 +31,5 @@ public class RepoConfig {
         return new MySQLMemberRepository(em);
     }
 
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
 }

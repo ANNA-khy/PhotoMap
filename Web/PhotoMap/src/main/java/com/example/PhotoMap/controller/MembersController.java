@@ -3,6 +3,7 @@ package com.example.PhotoMap.controller;
 import com.example.PhotoMap.domain.entity.Member;
 import com.example.PhotoMap.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/members")
 public class MembersController {
+    @Autowired
     private final MemberService memberService;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MembersController(MemberService memberService) {
+    public MembersController(MemberService memberService, PasswordEncoder passwordEncoder) {
         this.memberService = memberService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/signup")
@@ -26,7 +31,7 @@ public class MembersController {
     public String register(MemberForm form){
         Member member = new Member();
         member.setId(form.getId());
-        member.setPassword(form.getPassword());
+        member.setPassword(passwordEncoder.encode(form.getPassword()));
         member.setEmail(form.getEmail());
 
         this.memberService.join(member);

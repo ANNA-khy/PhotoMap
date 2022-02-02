@@ -3,6 +3,7 @@ package com.example.PhotoMap.config.auth;
 import com.example.PhotoMap.domain.entity.Member;
 import com.example.PhotoMap.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +23,6 @@ public class PrincipalDetailsService implements UserDetailsService {
         if (member.isPresent()){
             return new PrincipalDetails(member.get());
         }
-        throw new UsernameNotFoundException("UsernameNotFoundException");
+        throw new InternalAuthenticationServiceException("Invalid User");
     }
 }

@@ -12,20 +12,20 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+    // private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
+        //this.passwordEncoder = passwordEncoder;
     }
 
     /* 회원가입 */
     public String join(Member member){
         // 같은 이름이 있는 중복 회원 X
         validateDuplicateMember(member);
-        String encodedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encodedPassword);
+        // String encodedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(member.getPassword());
         memberRepository.save(member);
         return member.getId();
     }

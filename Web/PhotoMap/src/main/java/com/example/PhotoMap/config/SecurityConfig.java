@@ -1,6 +1,6 @@
 package com.example.PhotoMap.config;
 
-import com.example.PhotoMap.config.auth.PrincipalDetailsService;
+import com.example.PhotoMap.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private PrincipalDetailsService principalDetailsService;
+    private MemberService memberService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -38,11 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
+                    .logoutUrl("/members/logout")
+                    .logoutSuccessUrl("/")
                     .permitAll();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(principalDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
 }

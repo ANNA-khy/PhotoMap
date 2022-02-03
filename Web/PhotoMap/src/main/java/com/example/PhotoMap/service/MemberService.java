@@ -1,30 +1,32 @@
 package com.example.PhotoMap.service;
 
+import com.example.PhotoMap.config.auth.PrincipalDetails;
 import com.example.PhotoMap.domain.entity.Member;
 import com.example.PhotoMap.repository.MemberRepository;
 import net.bytebuddy.NamingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Transactional
-public class MemberService {
+public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
-    // private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        //this.passwordEncoder = passwordEncoder;
     }
 
     /* 회원가입 */
     public String join(Member member){
         // 같은 이름이 있는 중복 회원 X
         validateDuplicateMember(member);
-        // String encodedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(member.getPassword());
         memberRepository.save(member);
         return member.getId();
@@ -46,5 +48,14 @@ public class MemberService {
 
         else
             return 1;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        Optional<Member> member = memberRepository.findById(id);
+        if (member.isPresent()){
+            return new PrincipalDetails(member.get());
+        }
+        throw new InternalAuthenticationServiceException("Invalid User");
     }
 }

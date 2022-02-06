@@ -24,6 +24,11 @@ public class MainController {
     public String home(){
         return "home";
     }
+
+    @GetMapping("/fileUpload")
+    public String fileUpload(Model model){
+        return "fileUpload";
+    }
     @GetMapping("/nomembers")
     public String nomemberMenu(Model model){
         return "";
